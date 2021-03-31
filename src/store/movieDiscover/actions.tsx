@@ -10,9 +10,9 @@ export const startLoading = (): MovieAction => ({
   type: "movieDiscover/startLoading",
 });
 
-export const moviesFetched = (moreMovies: Movie[]): MovieAction => ({
+export const moviesFetched = (movieList: Movie[]): MovieAction => ({
   type: "movieDiscover/moviesFetched",
-  payload: moreMovies,
+  payload: movieList,
 });
 
 export const fetchSearchMovies = (search_input: string) => async (
@@ -21,8 +21,10 @@ export const fetchSearchMovies = (search_input: string) => async (
 ) => {
   dispatch(startLoading());
 
+  //const settle = getState().movieDiscover.movies;
+
   const response = await axios.get(`${API_URL}&s=${search_input}`);
-  console.log("all movies", response.data.Search);
+  console.log("searched movies: ", response.data.Search);
   const moreMovies = response.data.Search;
   dispatch(moviesFetched(moreMovies));
 };
