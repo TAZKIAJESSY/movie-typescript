@@ -2,9 +2,9 @@ import { Movie } from "../types";
 
 export type MovieState = {
   loading: boolean;
-  movies: [];
+  movies: Movie[];
 };
 
 export type MovieAction =
-  | { type: "movie/startLoading" }
-  | { type: "movie/moviesFetched"; payload: Movie[] };
+  | { type: "movieDiscover/startLoading" }
+  | { type: "movieDiscover/moviesFetched"; payload: Movie[] };

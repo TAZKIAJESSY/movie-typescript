@@ -1,11 +1,10 @@
 // src/store/index.ts
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import ReduxThunk from "redux-thunk";
-// import someFeatureReducer from "./someFeature/reducer";
+import movieReducer from "./movieDiscover/reducer";
 
 const rootReducer = combineReducers({
-  // someFeature: someFeatureReducer
-  // etc...
+  movieDiscover: movieReducer,
 });
 
 const devTools = (window as any).__REDUX_DEVTOOLS_EXTENSION__
