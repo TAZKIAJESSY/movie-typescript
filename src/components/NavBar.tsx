@@ -12,11 +12,11 @@ function NavBar() {
         alignItems: "center",
       }}
     >
-      <NavLink exact to="/">
+      <NavLink exact to="/" activeStyle={{ color: "teal" }}>
         Home
       </NavLink>
 
-      <NavLink exact to="/discover">
+      <NavLink exact to="/discover" activeStyle={{ color: "orange" }}>
         Discover Movie Page
       </NavLink>
     </div>
