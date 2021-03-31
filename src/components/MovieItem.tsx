@@ -2,15 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { fetchSearchMovies } from "../store/movieDiscover/actions";
-import {
-  selectMovieLoading,
-  selectMovieFetch,
-} from "../store/movieDiscover/selectors";
+import { selectMovieFetch } from "../store/movieDiscover/selectors";
 
 export default function MovieItem() {
   const dispatch = useDispatch();
 
-  const loading = useSelector(selectMovieLoading);
   const movies = useSelector(selectMovieFetch);
 
   const [searchText, setSearchText] = useState("");
@@ -41,9 +37,35 @@ export default function MovieItem() {
         Search for favourite movies!
       </div>
 
-      <form>
-        <input type="text" value={searchText} onChange={handleChange}></input>
+      <form style={{ margin: 20 }}>
+        <input
+          style={{
+            padding: 20,
+            borderWidth: 3,
+            display: "inline-block",
+            color: "blue",
+          }}
+          type="text"
+          value={searchText}
+          onChange={handleChange}
+        ></input>
       </form>
+
+      {!movies ? (
+        <p>Loading....</p>
+      ) : (
+        <div>
+          {movies.map((m, index) => {
+            return (
+              <div key={index}>
+                <h1>{m.Title}</h1>
+                <p>{m.Year}</p>
+                <img src={m.Poster} alt="" />
+              </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }
