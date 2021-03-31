@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { fetchSearchMovies } from "../store/movieDiscover/actions";
@@ -27,7 +27,7 @@ export default function MovieItem() {
 
   //useEffect is not effective for query string search term bcoz everytime you search it renders Api as dependency changes
   const search = () => {
-    console.log("Start searching for:", searchText);
+    // console.log("Start searching for:", searchText);
 
     if (!searchText || searchText === "") {
       //if queryParam not defined or empty then set to idle just return this other than go check lower steps
@@ -36,10 +36,12 @@ export default function MovieItem() {
     }
     // Best practice: encode the string so that special characters
     //  like '&' and '?' don't accidentally mess up the URL
-    const queryParam = encodeURIComponent(searchText);
+    const queryText = encodeURIComponent(searchText);
     setSearchState({ status: "searching" });
 
-    dispatch(fetchSearchMovies(queryParam));
+    dispatch(fetchSearchMovies(queryText));
+
+    setSearchState({ status: "done" });
   };
 
   return (
@@ -54,8 +56,8 @@ export default function MovieItem() {
         alignItems: "center",
       }}
     >
-      <div style={{ backgroundColor: "pink", padding: 30 }}>
-        Search for favourite movies!
+      <div style={{ backgroundColor: "beige", padding: 30 }}>
+        Don't wait :) Hurry up! MOviesssssss...
       </div>
 
       <form
@@ -74,30 +76,38 @@ export default function MovieItem() {
           type="text"
           value={searchText}
           onChange={handleChange}
-        ></input>
-        <button onClick={search}>Search</button>
+        ></input>{" "}
+        <button
+          onClick={search}
+          style={{ padding: 13, background: "grey", fontSize: 20 }}
+        >
+          Search
+        </button>
       </form>
 
       {searchState.status === "idle" ? (
         <p>Search for your favourite movies!</p>
       ) : null}
-      {/* {searchState.status === "searching" ? <p>Searching...</p> : null} */}
+      {searchState.status === "searching" ? <p>Searching...</p> : null}
+      {searchState.status === "done" ? (
+        movies && movies.length > 0 ? (
+          <div>
+            {movies.map((m, index) => {
+              return (
+                <div key={index}>
+                  <h1>{m.Title}</h1>
+                  <p>{m.Year}</p>
+                  <p>imdbID: {m.imdbID}</p>
 
-      {movies && movies.length > 0 ? (
-        <div>
-          {movies.map((m, index) => {
-            return (
-              <div key={index}>
-                <h1>{m.Title}</h1>
-                <p>{m.Year}</p>
-                <img src={m.Poster} alt="" />
-              </div>
-            );
-          })}
-        </div>
-      ) : (
-        <p>No Results found...</p>
-      )}
+                  <img src={m.Poster} alt="" />
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <p>No Results found...</p>
+        )
+      ) : null}
     </div>
   );
 }
