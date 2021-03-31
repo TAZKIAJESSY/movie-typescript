@@ -22,6 +22,7 @@ export const fetchSearchMovies = (search_input: string) => async (
   dispatch(startLoading());
 
   const response = await axios.get(`${API_URL}&s=${search_input}`);
-  const moreMovies = response.data;
+  console.log("all movies", response.data.Search);
+  const moreMovies = response.data.Search;
   dispatch(moviesFetched(moreMovies));
 };

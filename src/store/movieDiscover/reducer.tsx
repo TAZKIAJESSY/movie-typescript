@@ -20,7 +20,7 @@ export default function movieReducer(
     case "movieDiscover/moviesFetched": {
       return {
         loading: false,
-        movies: [...state.movies, ...action.payload],
+        movies: action.payload,
       };
     }
 
