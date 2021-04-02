@@ -26,7 +26,7 @@ export default function MovieItem() {
   }
 
   //useEffect is not effective for query string search term bcoz everytime you search it renders Api as dependency changes
-  const search = () => {
+  const search = async () => {
     // console.log("Start searching for:", searchText);
 
     if (!searchText || searchText === "") {
